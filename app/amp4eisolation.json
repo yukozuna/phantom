@@ -1,0 +1,169 @@
+{
+    "appid": "d0f67522-5bd0-43e7-88b3-21bd5480dfec",
+    "name": "AMP4E Isolation",
+    "description": "Test Isolation",
+    "type": "endpoint",
+    "product_vendor": "Cisco",
+    "logo": "amp4eisolation.png",
+    "logo_dark": "amp4eisolation_dark.png",
+    "product_name": "AMP4E",
+    "python_version": "2.7",
+    "product_version_regex": ".*",
+    "publisher": "Cisco",
+    "license": "Copyright (c) Cisco, 2020",
+    "app_version": "1.0.0",
+    "utctime_updated": "2020-06-22T13:03:48.934860Z",
+    "package_name": "phantom_amp4eisolation",
+    "main_module": "amp4eisolation_connector.pyc",
+    "min_phantom_version": "4.8.24304",
+    "app_wizard_version": "1.0.0",
+    "configuration": {
+        "base_url": {
+            "description": "Base URL",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "api.amp.cisco.com",
+            "order": 0
+        },
+        "client_id": {
+            "description": "Client ID",
+            "data_type": "string",
+            "required": false,
+            "value_list": [],
+            "default": "",
+            "order": 1
+        },
+        "api_key": {
+            "description": "API Key",
+            "data_type": "string",
+            "required": false,
+            "value_list": [],
+            "default": "",
+            "order": 2
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied configuration",
+            "verbose": "",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "quarantine device",
+            "identifier": "quarantine_device",
+            "description": "Quarantine the endpoint",
+            "verbose": "",
+            "type": "contain",
+            "read_only": false,
+            "parameters": {
+                "connector_guid": {
+                    "description": "Connector GUID of endpoint to quarantine",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.connector_guid",
+                    "data_type": "string",
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "column_name": "connector_guid",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "unquarantine device",
+            "identifier": "unquarantine_device",
+            "description": "Unquarantine the endpoint",
+            "verbose": "",
+            "type": "correct",
+            "read_only": false,
+            "parameters": {
+                "connector_guid": {
+                    "description": "Connector GUID of endpoint to unquarantine",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.connector_guid",
+                    "data_type": "string",
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "column_name": "connector_guid",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        }
+    ]
+}
