@@ -1,0 +1,528 @@
+{
+    "appid": "45f15a76-d021-4578-8544-d5a42b8539d7",
+    "name": "AMP For Endpoints",
+    "description": "Connector to Cisco's AMP for Endpoints",
+    "type": "endpoint",
+    "product_vendor": "Cisco",
+    "logo": "ampforendpoints.png",
+    "logo_dark": "ampforendpoints_dark.png",
+    "product_name": "AMP for Endpoints",
+    "python_version": "2.7",
+    "product_version_regex": ".*",
+    "publisher": "Yazan Mughrabi",
+    "license": "Copyright (c) Yazan Mughrabi, 2020",
+    "app_version": "1.0.2",
+    "utctime_updated": "2020-06-24T04:46:16.404297Z",
+    "package_name": "phantom_ampforendpoints",
+    "main_module": "ampforendpoints_connector.pyc",
+    "min_phantom_version": "4.8.24304",
+    "app_wizard_version": "1.0.0",
+    "configuration": {
+        "base_url": {
+            "description": "Location of AMP Service",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "api.amp.cisco.com",
+            "order": 0
+        },
+        "client_id": {
+            "description": "API Client ID",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 1
+        },
+        "api_key": {
+            "description": "API Key",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 2
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied configuration",
+            "verbose": "",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "quarantine device",
+            "identifier": "quarantine_device",
+            "description": "Quarantine the endpoint",
+            "verbose": "",
+            "type": "contain",
+            "read_only": false,
+            "parameters": {
+                "connector_guid": {
+                    "description": "Connector GUID of endpoint to quarantine",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "password": {
+                    "description": "Unlock Password for Isolation",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": false,
+                    "contains": [
+                        "*"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 1
+                },
+                "comment": {
+                    "description": "Comment",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": false,
+                    "contains": [
+                        "*"
+                    ],
+                    "value_list": [],
+                    "default": "Isolated by Phantom",
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.connector_guid",
+                    "data_type": "string",
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "column_name": "connector_guid",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.parameter.password",
+                    "data_type": "string",
+                    "contains": [
+                        "*"
+                    ],
+                    "column_name": "password",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.parameter.comment",
+                    "data_type": "string",
+                    "contains": [
+                        "*"
+                    ],
+                    "column_name": "comment",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 3
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "unquarantine device",
+            "identifier": "unquarantine_device",
+            "description": "Unquarantine the endpoint",
+            "verbose": "",
+            "type": "correct",
+            "read_only": false,
+            "parameters": {
+                "connector_guid": {
+                    "description": "Connector GUID of endpoint to unquarantine",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "comment": {
+                    "description": "Comment",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": false,
+                    "contains": [
+                        "*"
+                    ],
+                    "value_list": [],
+                    "default": "Unquarantined by Phantom",
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.connector_guid",
+                    "data_type": "string",
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "column_name": "connector_guid",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.parameter.comment",
+                    "data_type": "string",
+                    "contains": [
+                        "*"
+                    ],
+                    "column_name": "comment",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list endpoints",
+            "identifier": "list_endpoints",
+            "description": "List all the endpoints/sensors configured on the device",
+            "verbose": "",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "hostname": {
+                    "description": "hostname to get GUID for",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [
+                        "host name"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.hostname",
+                    "data_type": "string",
+                    "contains": [
+                        "host name"
+                    ],
+                    "column_name": "hostname",
+                    "column_order": 0,
+                    "example_values": [
+                        "Demo_AMP_Exploit_Prevention"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Connector guid: 4d39c887-4d65-4b81-a770-f72bdd5d43fe"
+                    ]
+                },
+                {
+                    "data_path": "action_result.connector_guid",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.version",
+                    "data_type": "string",
+                    "example_values": [
+                        "v1.2.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.orbital.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "not_enabled"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.operating_system",
+                    "data_type": "string",
+                    "example_values": [
+                        "Windows 10, SP 0.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.connector_guid",
+                    "data_type": "string",
+                    "example_values": [
+                        "4d39c887-4d65-4b81-a770-f72bdd5d43fe"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.links.trajectory",
+                    "data_type": "string",
+                    "example_values": [
+                        "https://api.amp.cisco.com/v1/computers/4d39c887-4d65-4b81-a770-f72bdd5d43fe/trajectory"
+                    ],
+                    "contains": [
+                        "url"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.links.computer",
+                    "data_type": "string",
+                    "example_values": [
+                        "https://api.amp.cisco.com/v1/computers/4d39c887-4d65-4b81-a770-f72bdd5d43fe"
+                    ],
+                    "contains": [
+                        "url"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.links.group",
+                    "data_type": "string",
+                    "example_values": [
+                        "https://api.amp.cisco.com/v1/groups/f3071769-75f8-4bea-b0bd-aa30c5d32915"
+                    ],
+                    "contains": [
+                        "url"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.connector_version",
+                    "data_type": "string",
+                    "example_values": [
+                        "7.2.7.11687"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.external_ip",
+                    "data_type": "string",
+                    "example_values": [
+                        "107.154.32.119"
+                    ],
+                    "contains": [
+                        "ip"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.isolation.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "not_isolated"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.isolation.available",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.hostname",
+                    "data_type": "string",
+                    "example_values": [
+                        "Demo_AMP_Exploit_Prevention"
+                    ],
+                    "contains": [
+                        "host name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.install_date",
+                    "data_type": "string",
+                    "example_values": [
+                        "2020-06-22T11:55:48Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.network_addresses.*.ip",
+                    "data_type": "string",
+                    "example_values": [
+                        "4.211.78.54"
+                    ],
+                    "contains": [
+                        "ip"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.network_addresses.*.mac",
+                    "data_type": "string",
+                    "example_values": [
+                        "11:31:e5:b0:9e:25"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.windows_processor_id",
+                    "data_type": "string",
+                    "example_values": [
+                        "94f16807bd5e3a2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.internal_ips",
+                    "data_type": "string",
+                    "example_values": [
+                        "187.67.43.108"
+                    ],
+                    "contains": [
+                        "ip"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.group_guid",
+                    "data_type": "string",
+                    "example_values": [
+                        "f3071769-75f8-4bea-b0bd-aa30c5d32915"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.policy.guid",
+                    "data_type": "string",
+                    "example_values": [
+                        "6cdac921-60ec-4c5d-8f8a-822689c6d969"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.policy.name",
+                    "data_type": "string",
+                    "example_values": [
+                        "Triage Policy"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.active",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.data.*.last_seen",
+                    "data_type": "string",
+                    "example_values": [
+                        "2020-06-22T11:58:57Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.metadata.results.index",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.metadata.results.total",
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.metadata.results.items_per_page",
+                    "data_type": "numeric",
+                    "example_values": [
+                        500
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.metadata.results.current_item_count",
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.metadata.links.self",
+                    "data_type": "string",
+                    "example_values": [
+                        "https://api.amp.cisco.com/v1/computers?hostname%5B%5D=Demo_AMP_Exploit_Prevention"
+                    ],
+                    "contains": [
+                        "url"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.connector_guid",
+                    "data_type": "string",
+                    "example_values": [
+                        "4d39c887-4d65-4b81-a770-f72bdd5d43fe"
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        }
+    ]
+}

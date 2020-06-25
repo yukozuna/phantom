@@ -1,0 +1,291 @@
+{
+    "appid": "45f15a76-d021-4578-8544-d5a42b8539d7",
+    "name": "AMP For Endpoints",
+    "description": "Connector to Cisco's AMP for Endpoints",
+    "type": "endpoint",
+    "product_vendor": "Cisco",
+    "logo": "ampforendpoints.png",
+    "logo_dark": "ampforendpoints_dark.png",
+    "product_name": "AMP for Endpoints",
+    "python_version": "2.7",
+    "product_version_regex": ".*",
+    "publisher": "Yazan Mughrabi",
+    "license": "Copyright (c) Yazan Mughrabi, 2020",
+    "app_version": "1.0.2",
+    "utctime_updated": "2020-06-24T04:46:16.404297Z",
+    "package_name": "phantom_ampforendpoints",
+    "main_module": "ampforendpoints_connector.pyc",
+    "min_phantom_version": "4.8.24304",
+    "app_wizard_version": "1.0.0",
+    "configuration": {
+        "base_url": {
+            "description": "Location of AMP Service",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "api.amp.cisco.com",
+            "order": 0
+        },
+        "client_id": {
+            "description": "API Client ID",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 1
+        },
+        "api_key": {
+            "description": "API Key",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 2
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied configuration",
+            "verbose": "",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "quarantine device",
+            "identifier": "quarantine_device",
+            "description": "Quarantine the endpoint",
+            "verbose": "",
+            "type": "contain",
+            "read_only": false,
+            "parameters": {
+                "connector_guid": {
+                    "description": "Connector GUID of endpoint to quarantine",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "password": {
+                    "description": "Unlock Password for Isolation",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": false,
+                    "contains": [
+                        "*"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 1
+                },
+                "comment": {
+                    "description": "Comment",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": false,
+                    "contains": [
+                        "*"
+                    ],
+                    "value_list": [],
+                    "default": "Isolated by Phantom",
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.connector_guid",
+                    "data_type": "string",
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "column_name": "connector_guid",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.parameter.password",
+                    "data_type": "string",
+                    "contains": [
+                        "*"
+                    ],
+                    "column_name": "password",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.parameter.comment",
+                    "data_type": "string",
+                    "contains": [
+                        "*"
+                    ],
+                    "column_name": "comment",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 3
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "unquarantine device",
+            "identifier": "unquarantine_device",
+            "description": "Unquarantine the endpoint",
+            "verbose": "",
+            "type": "correct",
+            "read_only": false,
+            "parameters": {
+                "connector_guid": {
+                    "description": "Connector GUID of endpoint to unquarantine",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "comment": {
+                    "description": "Comment",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": false,
+                    "contains": [
+                        "*"
+                    ],
+                    "value_list": [],
+                    "default": "Unquarantined by Phantom",
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.connector_guid",
+                    "data_type": "string",
+                    "contains": [
+                        "fireamp connector guid"
+                    ],
+                    "column_name": "connector_guid",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.parameter.comment",
+                    "data_type": "string",
+                    "contains": [
+                        "*"
+                    ],
+                    "column_name": "comment",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list endpoints",
+            "identifier": "list_endpoints",
+            "description": "List all the endpoints/sensors configured on the device",
+            "verbose": "",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "hostname": {
+                    "description": "hostname to get GUID for",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [
+                        "host name"
+                    ],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.hostname",
+                    "data_type": "string",
+                    "contains": [
+                        "host name"
+                    ],
+                    "column_name": "hostname",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.connector_guid",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        }
+    ]
+}
